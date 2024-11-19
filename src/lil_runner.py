@@ -80,7 +80,8 @@ while time.time()-start_time < 10:
 
   t = time.time() - start_time
   goal_angle = sin_controller(t)  # (Define a goal position)
-  hip2_angle = sin_controller(t, p=math.pi)
+  hip1_angle = sin_controller(t, p=math.pi/6)
+  hip2_angle = sin_controller(t, p=math.pi/6 + math.pi)
 
   for joint in joint_ids:
     set_goal_position(joint, goal_angle) 
