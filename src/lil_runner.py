@@ -17,14 +17,16 @@ ANKLE2 = 6
 KNEE1 = 2
 KNEE2 = 5  
 HIP1 = 3
-HIP2 = 4        
-all_joint_ids = [ANKLE1, ANKLE2, KNEE1, KNEE2, HIP1, HIP2]               
+HIP2 = 4                      
 BAUDRATE = 1000000                             # Baudrate of Dynamixel
 DEVICENAME = '/dev/ttyUSB0'                    # Port name (adjust based on your setup, e.g., '/dev/ttyUSB0' for Linux)
 
 # Initialize PortHandler for managing port operations, and PacketHandler for managing protocol operations
 portHandler = PortHandler(DEVICENAME)
 packetHandler = PacketHandler(PROTOCOL_VERSION)
+
+# list of all joints
+all_joint_ids = [ANKLE1, ANKLE2, KNEE1, KNEE2, HIP1, HIP2] 
 
 def sin_controller(t: float, a: int=154, p: int=0) -> int:
   '''
@@ -74,6 +76,7 @@ else:
    print("Failed to set baudrate")
    quit()
 
+# running each joint on the sine controller for 10 seconds
 joint_ids = [ANKLE1, ANKLE2,KNEE1, KNEE2, HIP1]
 start_time = time.time()
 while time.time()-start_time < 10:
@@ -83,6 +86,7 @@ while time.time()-start_time < 10:
   hip1_angle = sin_controller(t, p=math.pi/6)
   hip2_angle = sin_controller(t, p=math.pi/6 + math.pi)
 
+  # sets all the joint angles to match the sine wave
   for joint in joint_ids:
     set_goal_position(joint, goal_angle) 
 
