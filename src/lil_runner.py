@@ -77,24 +77,21 @@ else:
    quit()
 
 # running each joint on the sine controller for 10 seconds
-joint_ids = [ANKLE1, ANKLE2,KNEE1, KNEE2]
+joint_ids = [ANKLE1, ANKLE2,KNEE1, KNEE2, HIP1]
 start_time = time.time()
 while time.time()-start_time < 10:
 
   t = time.time() - start_time
   goal_angle = sin_controller(t)  # (Define a goal position)
 
-  # hip lift happens a little before knee and ankle lift
-  hip1_angle = sin_controller(t, p=math.pi/6)
   # due to the assembly of robot, hip2 needs to be phased to mirror the other hip
-  hip2_angle = sin_controller(t, p=math.pi/6 + math.pi)
+  hip2_angle = sin_controller(t, p=math.pi)
 
   # sets all the joint angles to match the sine wave
   for joint in joint_ids:
     set_goal_position(joint, goal_angle) 
  
   set_goal_position(HIP2, hip2_angle)
-  set_goal_position(HIP1, hip1_angle)
 
 # initialize angles
 for joint in all_joint_ids:
