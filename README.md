@@ -1,6 +1,6 @@
 # Lil Runner
-<!-- replace heading to name of prototype/robot -->
-*By Lazo Omar*
+
+*A project in the course IN5590 By Lazo Omar*
 
 
 
